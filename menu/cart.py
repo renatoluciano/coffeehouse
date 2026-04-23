@@ -43,3 +43,9 @@ class Cart:
     def clear(self):
         del self.session['cart']
         self.save()
+
+    def __len__(self):
+        """
+        Count all items in the cart.
+        """
+        return sum(item['quantity'] for item in self.cart.values())

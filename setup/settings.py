@@ -47,10 +47,12 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'menu.context_processors.cart', # ADICIONE ESTA LINHA
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'setup.wsgi.application'
 

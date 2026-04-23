@@ -16,10 +16,27 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link text-light" href="{% url 'index' %}">Menu</a></li>
+                    
+                    <!-- CART LINK WITH COUNTER -->
                     <li class="nav-item ms-lg-3">
-                        <a class="nav-link text-light" href="{% url 'cart_detail' %}">🛒 Cart</a>
+                        <a class="nav-link text-light position-relative" href="{% url 'cart_detail' %}">
+                            🛒 Cart
+                            {% with total_items=cart|length %}
+                                {% if total_items > 0 %}
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ total_items }}
+                                    </span>
+                                {% endif %}
+                            {% endwith %}
+                        </a>
                     </li>
+
                     {% if user.is_authenticated %}
+                        {% if user.is_staff or user.is_coffee_staff %}
+                        <li class="nav-item ms-lg-3">
+                            <a class="nav-link text-warning fw-bold" href="{% url 'barista_dashboard' %}">Barista Panel</a>
+                        </li>
+                        {% endif %}
                         <li class="nav-item ms-lg-3">
                             <a class="nav-link text-light" href="{% url 'profile' %}">Hello, {{ user.username }}</a>
                         </li>
@@ -38,12 +55,11 @@
         </div>
     </nav>
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <main>{% block content %}{% endblock %}</main>
 
     <footer class="text-center py-4 mt-5 border-top bg-white">
         <p>&copy; 2024 Coffee House</p>
     </footer>
+    <script src="https://jsdelivr.net"></script>
 </body>
 </html>
