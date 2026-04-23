@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coffee House | Menu</title>
+</head>
+<body>
+    <h1>Coffee House Menu</h1>
+    <hr>
+    <ul>
+        {% for product in products %}
+            <li>
+                <strong>{{ product.name }}</strong> - ${{ product.price }} <br>
+                <p>{{ product.description }}</p>
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" width="150" alt="{{ product.name }}">
+                {% endif %}
+            </li>
+        {% empty %}
+            <p>Our menu is currently being updated. Come back soon!</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>
