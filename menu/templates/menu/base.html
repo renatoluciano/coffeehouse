@@ -34,14 +34,20 @@
                     
                     {% if user.is_authenticated %}
                         <!-- Visible only when logged in -->
+                        
+                        <!-- BARISTA LINK: Visible only for staff -->
+                        {% if user.is_staff or user.is_coffee_staff %}
+                        <li class="nav-item ms-lg-3">
+                            <a class="nav-link text-warning fw-bold" href="{% url 'barista_dashboard' %}">Barista Panel</a>
+                        </li>
+                        {% endif %}
+
                         <li class="nav-item ms-lg-3">
                             <a class="nav-link text-light" href="{% url 'profile' %}">
                                 Hello, <strong>{{ user.username }}</strong>
                             </a>
                         </li>
-                        <li class="nav-item ms-lg-3">
-                            <a class="nav-link" href="#">My Orders</a>
-                        </li>
+
                         <li class="nav-item ms-lg-3">
                             <form action="{% url 'logout' %}" method="post" class="d-inline">
                                 {% csrf_token %}

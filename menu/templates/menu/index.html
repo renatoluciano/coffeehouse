@@ -19,7 +19,7 @@
         {% for product in products %}
         <div class="col">
             <div class="card h-100 shadow-sm border-0">
-                <!-- Product Image Linked to Detail -->
+                <!-- Image link to details -->
                 <a href="{% url 'product_detail' product.pk %}">
                     {% if product.image %}
                         <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 260px; object-fit: cover;">
@@ -33,7 +33,6 @@
                         <span class="badge badge-category text-dark bg-light border">{{ product.category.name }}</span>
                     </div>
                     
-                    <!-- Product Title Linked to Detail -->
                     <h4 class="card-title fw-bold">
                         <a href="{% url 'product_detail' product.pk %}" class="text-decoration-none text-dark">
                             {{ product.name }}
@@ -48,7 +47,8 @@
                         <span class="price-tag h4 mb-0">${{ product.price }}</span>
                         
                         {% if product.is_available %}
-                            <a href="{% url 'product_detail' product.pk %}" class="btn btn-coffee px-4">Details</a>
+                            <!-- Action button for Quick Order -->
+                            <a href="{% url 'create_order' product.id %}" class="btn btn-coffee px-4">Order Now</a>
                         {% else %}
                             <button class="btn btn-secondary px-4" disabled>Sold Out</button>
                         {% endif %}
@@ -57,11 +57,8 @@
             </div>
         </div>
         {% empty %}
-        <!-- Empty State -->
         <div class="col-12 text-center py-5">
-            <img src="https://flaticon.com" alt="Empty" width="80" class="mb-3 opacity-25">
-            <h3>The menu is empty</h3>
-            <p class="text-muted">Register your coffees in the Admin Panel to see them here.</p>
+            <h3>Our menu is currently empty.</h3>
         </div>
         {% endfor %}
 

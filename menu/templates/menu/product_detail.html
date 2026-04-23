@@ -1,30 +1,50 @@
 {% extends 'menu/base.html' %}
 
-{% block title %}{{ product.name }} | Coffee House{% endblock %}
+{% block title %}{{ product.name }} | Details{% endblock %}
 
 {% block content %}
 <div class="container py-5">
-    <div class="row">
-        <!-- Coluna da Imagem -->
-        <div class="col-md-6 mb-4">
+    <div class="row align-items-center">
+        <!-- Product Image -->
+        <div class="col-md-6 mb-4 mb-md-0">
             {% if product.image %}
-                <img src="{{ product.image.url }}" class="img-fluid rounded shadow" alt="{{ product.name }}">
+                <img src="{{ product.image.url }}" class="img-fluid rounded shadow-lg" alt="{{ product.name }}" style="width: 100%; max-height: 500px; object-fit: cover;">
             {% else %}
                 <img src="https://placeholder.com" class="img-fluid rounded shadow" alt="Coming Soon">
             {% endif %}
         </div>
 
-        <!-- Coluna das Informações -->
-        <div class="col-md-6">
-            <span class="badge badge-category mb-2 text-dark">{{ product.category.name }}</span>
-            <h1 class="display-4 fw-bold">{{ product.name }}</h1>
-            <p class="price-tag h2 mb-4">${{ product.price }}</p>
-            <hr>
-            <p class="lead text-muted">{{ product.description }}</p>
+        <!-- Product Info -->
+        <div class="col-md-6 ps-md-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}" class="text-decoration-none text-muted">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ product.category.name }}</li>
+                </ol>
+            </nav>
+
+            <h1 class="display-4 fw-bold mb-3">{{ product.name }}</h1>
+            <p class="price-tag h2 mb-4 text-brown">${{ product.price }}</p>
             
-            <div class="mt-5">
-                <button class="btn btn-coffee btn-lg px-5">Add to Order</button>
-                <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-lg ms-2">Back to Menu</a>
+            <div class="description-box mb-4">
+                <h5 class="fw-bold text-uppercase small text-muted">Description</h5>
+                <p class="lead">{{ product.description }}</p>
+            </div>
+
+            <div class="order-actions d-grid gap-2 d-md-flex mt-5">
+                {% if product.is_available %}
+                    <!-- Quick Order Button -->
+                    <a href="{% url 'create_order' product.id %}" class="btn btn-coffee btn-lg px-5 shadow">Confirm Order</a>
+                {% else %}
+                    <button class="btn btn-secondary btn-lg px-5" disabled>Currently Unavailable</button>
+                {% endif %}
+                <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-lg px-4">Back to Menu</a>
+            </div>
+
+            <div class="mt-4 p-3 bg-light rounded border">
+                <small class="text-muted italic">
+                    <i class="bi bi-info-circle"></i> This item is freshly prepared upon your order. Estimated time: 5-10 mins.
+                </small>
             </div>
         </div>
     </div>
