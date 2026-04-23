@@ -1,0 +1,19 @@
+/* Coffee House Styles */
+body { background-color: #f8f5f2; color: #432818; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+/* Cor marrom customizada para a Navbar */
+.navbar { 
+    background-color: #432818 !important; 
+}
+
+/* Garante que o texto da marca fique visível */
+.navbar-brand {
+    color: #ffffff !important;
+}
+
+.hero-section { background-color: white; border-bottom: 1px solid #e2d7cc; }
+.card { border: none; transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 15px; overflow: hidden; }
+.card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(67, 40, 24, 0.15); }
+.btn-coffee { background-color: #99582a; color: white; border-radius: 25px; font-weight: 600; transition: 0.3s; }
+.btn-coffee:hover { background-color: #6f3d1b; color: white; transform: scale(1.05); }
+.price-tag { font-size: 1.3rem; font-weight: 700; color: #99582a; }
+.badge-category { background-color: #ede0d4; color: #7f5539; border: 1px solid #ddb892; }
