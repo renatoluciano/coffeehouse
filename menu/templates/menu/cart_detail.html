@@ -1,0 +1,71 @@
+{% extends 'menu/base.html' %}
+
+{% block title %}Your Cart | Coffee House{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="fw-bold mb-4">Shopping Cart</h2>
+
+    {% if cart %}
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 p-3" style="border-radius: 15px;">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart %}
+                        {% with product=item.product %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    {% if product.image %}
+                                        <img src="{{ product.image.url }}" width="50" class="rounded me-3">
+                                    {% endif %}
+                                    <strong>{{ product.name }}</strong>
+                                </div>
+                            </td>
+                            <td>{{ item.quantity }}</td>
+                            <td>${{ item.price }}</td>
+                            <td>${{ item.total_price }}</td>
+                            <td>
+                                <a href="{% url 'cart_remove' product.id %}" class="btn btn-sm btn-outline-danger">Remove</a>
+                            </td>
+                        </tr>
+                        {% endwith %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 p-4" style="border-radius: 15px; background-color: #fcfaf8;">
+                <h4 class="fw-bold mb-3">Summary</h4>
+                <div class="d-flex justify-content-between mb-3">
+                    <span>Total:</span>
+                    <span class="h4 fw-bold text-brown">${{ cart.get_total_price }}</span>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-coffee btn-lg">Checkout (Soon)</button>
+                    <a href="{% url 'index' %}" class="btn btn-link text-muted">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <h3>Your cart is empty... ☕</h3>
+        <p>Go back to the menu to find your perfect coffee.</p>
+        <a href="{% url 'index' %}" class="btn btn-coffee">View Menu</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

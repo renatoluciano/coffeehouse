@@ -4,64 +4,25 @@
 {% block title %}Menu | Coffee House{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<header class="hero-section py-5 text-center mb-5 bg-white border-bottom">
-    <div class="container">
-        <h1 class="display-3 fw-bold">Our Special Menu</h1>
-        <p class="lead text-muted">Quality beans, roasted with passion, served for you.</p>
-    </div>
-</header>
-
-<!-- Products Grid -->
-<main class="container mb-5">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        
+<div class="container py-5">
+    <h1 class="text-center fw-bold mb-5">Our Menu</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for product in products %}
         <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <!-- Image link to details -->
+            <div class="card h-100 shadow-sm border-0 text-center p-3">
                 <a href="{% url 'product_detail' product.pk %}">
                     {% if product.image %}
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 260px; object-fit: cover;">
-                    {% else %}
-                        <img src="https://placeholder.com" class="card-img-top" alt="Coming Soon">
+                        <img src="{{ product.image.url }}" class="card-img-top rounded" style="height: 200px; object-fit: cover;">
                     {% endif %}
                 </a>
-                
-                <div class="card-body d-flex flex-column text-center">
-                    <div class="mb-2">
-                        <span class="badge badge-category text-dark bg-light border">{{ product.category.name }}</span>
-                    </div>
-                    
-                    <h4 class="card-title fw-bold">
-                        <a href="{% url 'product_detail' product.pk %}" class="text-decoration-none text-dark">
-                            {{ product.name }}
-                        </a>
-                    </h4>
-                    
-                    <p class="card-text text-muted flex-grow-1">
-                        {{ product.description|truncatewords:15 }}
-                    </p>
-                    
-                    <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
-                        <span class="price-tag h4 mb-0">${{ product.price }}</span>
-                        
-                        {% if product.is_available %}
-                            <!-- Action button for Quick Order -->
-                            <a href="{% url 'create_order' product.id %}" class="btn btn-coffee px-4">Order Now</a>
-                        {% else %}
-                            <button class="btn btn-secondary px-4" disabled>Sold Out</button>
-                        {% endif %}
-                    </div>
+                <h4 class="mt-3 fw-bold">{{ product.name }}</h4>
+                <div class="d-flex justify-content-between align-items-center mt-auto pt-3">
+                    <span class="price-tag h5 mb-0">${{ product.price }}</span>
+                    <a href="{% url 'cart_add' product.id %}" class="btn btn-coffee">Add to Cart</a>
                 </div>
             </div>
         </div>
-        {% empty %}
-        <div class="col-12 text-center py-5">
-            <h3>Our menu is currently empty.</h3>
-        </div>
         {% endfor %}
-
     </div>
-</main>
+</div>
 {% endblock %}

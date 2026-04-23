@@ -4,12 +4,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from menu import views as menu_views 
 from accounts import views as accounts_views
-from orders import views as orders_views # Importe orders
+from orders import views as orders_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', menu_views.index, name='index'),
     path('product/<int:pk>/', menu_views.product_detail, name='product_detail'),
+    
+    # Cart Routes
+    path('cart/', menu_views.cart_detail, name='cart_detail'),
+    path('cart/add/<int:product_id>/', menu_views.cart_add, name='cart_add'),
+    path('cart/remove/<int:product_id>/', menu_views.cart_remove, name='cart_remove'),
     
     # Auth & Profile
     path('signup/', accounts_views.signup, name='signup'),
@@ -20,8 +25,6 @@ urlpatterns = [
     
     # Orders
     path('order/create/<int:product_id>/', orders_views.create_order, name='create_order'),
-
-    # Barista Routes
     path('barista/', orders_views.barista_dashboard, name='barista_dashboard'),
     path('barista/status/<int:order_id>/<str:new_status>/', orders_views.update_status, name='update_status'),
 ]
