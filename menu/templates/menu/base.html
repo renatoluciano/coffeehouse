@@ -12,7 +12,7 @@
     <!-- Global Custom CSS -->
     <link rel="stylesheet" href="{% static 'menu/css/style.css' %}">
     
-    <!-- Block for specific page styles (like auth.css) -->
+    <!-- Block for specific page styles -->
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -34,14 +34,15 @@
                     
                     {% if user.is_authenticated %}
                         <!-- Visible only when logged in -->
-                        <li class="nav-item ms-lg-3 text-light">
-                            Hello, <strong>{{ user.username }}</strong>
+                        <li class="nav-item ms-lg-3">
+                            <a class="nav-link text-light" href="{% url 'profile' %}">
+                                Hello, <strong>{{ user.username }}</strong>
+                            </a>
                         </li>
                         <li class="nav-item ms-lg-3">
                             <a class="nav-link" href="#">My Orders</a>
                         </li>
                         <li class="nav-item ms-lg-3">
-                            <!-- Logout must be a POST request for security -->
                             <form action="{% url 'logout' %}" method="post" class="d-inline">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-link nav-link text-light p-0" style="text-decoration: none;">Logout</button>
@@ -63,26 +64,19 @@
 
     <!-- Main Content -->
     <main>
-        {% block content %}
-        <!-- Page specific content goes here -->
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
     <footer class="text-center py-5 mt-5 text-muted small border-top bg-white">
         <div class="container">
-            <p class="mb-1">&copy; 2024 Coffee House Project</p>
-            <p class="mb-0 text-uppercase" style="letter-spacing: 1px;">Premium Beans & Clean Code</p>
+            <p class="mb-0">&copy; 2024 Coffee House Project - Premium Beans & Clean Code</p>
         </div>
     </footer>
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://jsdelivr.net"></script>
-    
-    <!-- Global Custom JS -->
     <script src="{% static 'menu/js/scripts.js' %}"></script>
-    
-    <!-- Block for specific page scripts -->
     {% block extra_js %}{% endblock %}
 </body>
 </html>

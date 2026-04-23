@@ -1,0 +1,52 @@
+{% extends 'menu/base.html' %}
+{% load static %}
+
+{% block title %}My Profile | Coffee House{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow border-0" style="border-radius: 20px;">
+                <div class="card-header bg-dark text-white text-center py-4" style="border-radius: 20px 20px 0 0;">
+                    <h2 class="mb-0">Member Profile</h2>
+                </div>
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <div class="bg-light d-inline-block p-4 rounded-circle mb-3 border">
+                            <h1 class="display-1 mb-0 text-brown">☕</h1>
+                        </div>
+                        <h3 class="fw-bold">{{ user.username }}</h3>
+                        <p class="text-muted">Coffee Lover since {{ user.date_joined|date:"F Y" }}</p>
+                    </div>
+
+                    <div class="border-top pt-4">
+                        <div class="row mb-3">
+                            <div class="col-sm-4 fw-bold text-muted">EMAIL</div>
+                            <div class="col-sm-8">{{ user.email|default:"Not provided" }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4 fw-bold text-muted">PHONE</div>
+                            <div class="col-sm-8">{{ user.phone|default:"Not provided" }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4 fw-bold text-muted">STAFF STATUS</div>
+                            <div class="col-sm-8">
+                                {% if user.is_coffee_staff %}
+                                    <span class="badge bg-success">Coffee House Employee</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Valued Customer</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-5">
+                        <a href="{% url 'index' %}" class="btn btn-outline-brown rounded-pill">Back to Menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

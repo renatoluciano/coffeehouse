@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 
 def signup(request):
@@ -33,3 +34,7 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('index')
+
+@login_required
+def profile(request):
+    return render(request, 'accounts/profile.html')

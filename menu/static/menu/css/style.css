@@ -43,3 +43,14 @@ body {
     border-radius: 20px;
     border: none;
 }
+
+.btn-outline-brown {
+    border: 2px solid #99582a;
+    color: #99582a;
+    font-weight: 600;
+}
+.btn-outline-brown:hover {
+    background-color: #99582a;
+    color: white;
+}
+
