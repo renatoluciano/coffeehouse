@@ -11,7 +11,7 @@ urlpatterns = [
     path('', menu_views.index, name='index'),
     path('product/<int:pk>/', menu_views.product_detail, name='product_detail'),
     
-    # Cart Routes
+    # Cart
     path('cart/', menu_views.cart_detail, name='cart_detail'),
     path('cart/add/<int:product_id>/', menu_views.cart_add, name='cart_add'),
     path('cart/remove/<int:product_id>/', menu_views.cart_remove, name='cart_remove'),
@@ -24,7 +24,7 @@ urlpatterns = [
     path('profile/edit/', accounts_views.edit_profile, name='edit_profile'),
     
     # Orders
-    path('order/create/<int:product_id>/', orders_views.create_order, name='create_order'),
+    path('order/checkout/', orders_views.create_order, name='checkout'),
     path('barista/', orders_views.barista_dashboard, name='barista_dashboard'),
     path('barista/status/<int:order_id>/<str:new_status>/', orders_views.update_status, name='update_status'),
 ]
