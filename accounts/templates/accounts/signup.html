@@ -1,0 +1,51 @@
+{% extends 'menu/base.html' %}
+{% load static %}
+
+{% block title %}Sign Up | Coffee House{% endblock %}
+
+<!-- Adicionamos o CSS específico aqui -->
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow auth-card p-4">
+                <div class="card-body">
+                    <h2 class="text-center fw-bold mb-4 auth-title">Join Coffee House</h2>
+                    <p class="text-center text-muted mb-4">Create your account to start ordering.</p>
+                    
+                    <form method="post" class="auth-form" novalidate>
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="mb-2">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                
+                                {% if field.help_text %}
+                                    <small class="help-text">{{ field.help_text }}</small>
+                                {% endif %}
+                                
+                                {% for error in field.errors %}
+                                    <div class="text-danger small fw-bold">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-coffee btn-lg">Create Account</button>
+                        </div>
+                    </form>
+                    
+                    <p class="text-center mt-4 text-muted">
+                        Already have an account? <a href="#" class="text-decoration-none fw-bold" style="color: #99582a;">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

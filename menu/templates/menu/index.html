@@ -1,67 +1,70 @@
+{% extends 'menu/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee House | Premium Experience</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://jsdelivr.net" rel="stylesheet">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="{% static 'menu/css/style.css' %}">
-</head>
-<body>
 
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+{% block title %}Menu | Coffee House{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<header class="hero-section py-5 text-center mb-5 bg-white border-bottom">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="{% url 'index' %}">☕ COFFEE HOUSE</a>
+        <h1 class="display-3 fw-bold">Our Special Menu</h1>
+        <p class="lead text-muted">Quality beans, roasted with passion, served for you.</p>
     </div>
-</nav>
-    <header class="hero-section py-5 text-center mb-5">
-        <div class="container">
-            <h1 class="display-3 fw-bold text-brown">Our Special Menu</h1>
-            <p class="lead text-muted">Quality beans, roasted with passion, served for you.</p>
-        </div>
-    </header>
+</header>
 
-    <main class="container">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            {% for product in products %}
-            <div class="col">
-                <div class="card h-100 shadow-sm">
+<!-- Products Grid -->
+<main class="container mb-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        
+        {% for product in products %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <!-- Product Image Linked to Detail -->
+                <a href="{% url 'product_detail' product.pk %}">
                     {% if product.image %}
                         <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 260px; object-fit: cover;">
                     {% else %}
                         <img src="https://placeholder.com" class="card-img-top" alt="Coming Soon">
                     {% endif %}
+                </a>
+                
+                <div class="card-body d-flex flex-column text-center">
+                    <div class="mb-2">
+                        <span class="badge badge-category text-dark bg-light border">{{ product.category.name }}</span>
+                    </div>
                     
-                    <div class="card-body d-flex flex-column">
-                        <div class="mb-2">
-                            <span class="badge badge-category">{{ product.category.name }}</span>
-                        </div>
-                        <h4 class="card-title fw-bold">{{ product.name }}</h4>
-                        <p class="card-text text-muted flex-grow-1">{{ product.description }}</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="price-tag">${{ product.price }}</span>
-                            <button class="btn btn-coffee px-4">Order</button>
-                        </div>
+                    <!-- Product Title Linked to Detail -->
+                    <h4 class="card-title fw-bold">
+                        <a href="{% url 'product_detail' product.pk %}" class="text-decoration-none text-dark">
+                            {{ product.name }}
+                        </a>
+                    </h4>
+                    
+                    <p class="card-text text-muted flex-grow-1">
+                        {{ product.description|truncatewords:15 }}
+                    </p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+                        <span class="price-tag h4 mb-0">${{ product.price }}</span>
+                        
+                        {% if product.is_available %}
+                            <a href="{% url 'product_detail' product.pk %}" class="btn btn-coffee px-4">Details</a>
+                        {% else %}
+                            <button class="btn btn-secondary px-4" disabled>Sold Out</button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-            {% empty %}
-            <div class="col-12 text-center py-5">
-                <p class="text-muted">Wait a second... our barista is still preparing the menu!</p>
-            </div>
-            {% endfor %}
         </div>
-    </main>
+        {% empty %}
+        <!-- Empty State -->
+        <div class="col-12 text-center py-5">
+            <img src="https://flaticon.com" alt="Empty" width="80" class="mb-3 opacity-25">
+            <h3>The menu is empty</h3>
+            <p class="text-muted">Register your coffees in the Admin Panel to see them here.</p>
+        </div>
+        {% endfor %}
 
-    <footer class="text-center py-5 mt-5 text-muted small border-top bg-white">
-        <p>&copy; 2024 Coffee House Project | Django Developer Journey</p>
-    </footer>
-
-    <!-- Bootstrap & Custom JS -->
-    <script src="https://jsdelivr.net"></script>
-    <script src="{% static 'menu/js/scripts.js' %}"></script>
-</body>
-</html>
+    </div>
+</main>
+{% endblock %}

@@ -2,11 +2,14 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from menu.views import index  # Garanta que este import aponta para o menu
+from menu import views as menu_views 
+from accounts import views as accounts_views # Importe as views de accounts
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'), # O caminho vazio '' é a sua página inicial
+    path('', menu_views.index, name='index'),
+    path('product/<int:pk>/', menu_views.product_detail, name='product_detail'),
+    path('signup/', accounts_views.signup, name='signup'),
 ]
 
 if settings.DEBUG:

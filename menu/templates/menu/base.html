@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Coffee House | Premium Experience{% endblock %}</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    
+    <!-- Global Custom CSS (Menu styles) -->
+    <link rel="stylesheet" href="{% static 'menu/css/style.css' %}">
+    
+    <!-- Block for specific page styles (e.g., auth.css) -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'index' %}">☕ COFFEE HOUSE</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Menu</a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                        <!-- Items visible only when logged in -->
+                        <li class="nav-item ms-lg-3 text-light">
+                            Hello, <strong>{{ user.username }}</strong>
+                        </li>
+                        <li class="nav-item ms-lg-3">
+                            <a class="nav-link" href="#">My Orders</a>
+                        </li>
+                        <!-- We will add the Logout link soon -->
+                    {% else %}
+                        <!-- Items visible only when logged out -->
+                        <li class="nav-item ms-lg-3">
+                            <a class="nav-link" href="#">Login</a>
+                        </li>
+                        <li class="nav-item ms-lg-3">
+                            <a class="btn btn-outline-light px-4 signup-btn" href="{% url 'signup' %}">Sign Up</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        <!-- Page specific content goes here -->
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-5 mt-5 text-muted small border-top bg-white">
+        <div class="container">
+            <p class="mb-1">&copy; 2024 Coffee House Project</p>
+            <p class="mb-0 text-uppercase" style="letter-spacing: 1px;">Premium Beans & Clean Code</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://jsdelivr.net"></script>
+    
+    <!-- Global Custom JS -->
+    <script src="{% static 'menu/js/scripts.js' %}"></script>
+    
+    <!-- Block for specific page scripts -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

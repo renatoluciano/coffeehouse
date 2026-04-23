@@ -1,0 +1,32 @@
+{% extends 'menu/base.html' %}
+
+{% block title %}{{ product.name }} | Coffee House{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <!-- Coluna da Imagem -->
+        <div class="col-md-6 mb-4">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid rounded shadow" alt="{{ product.name }}">
+            {% else %}
+                <img src="https://placeholder.com" class="img-fluid rounded shadow" alt="Coming Soon">
+            {% endif %}
+        </div>
+
+        <!-- Coluna das Informações -->
+        <div class="col-md-6">
+            <span class="badge badge-category mb-2 text-dark">{{ product.category.name }}</span>
+            <h1 class="display-4 fw-bold">{{ product.name }}</h1>
+            <p class="price-tag h2 mb-4">${{ product.price }}</p>
+            <hr>
+            <p class="lead text-muted">{{ product.description }}</p>
+            
+            <div class="mt-5">
+                <button class="btn btn-coffee btn-lg px-5">Add to Order</button>
+                <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-lg ms-2">Back to Menu</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
