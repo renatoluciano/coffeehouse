@@ -1,0 +1,43 @@
+{% extends 'menu/base.html' %}
+{% load static %}
+
+{% block title %}Edit Profile | Coffee House{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow auth-card p-4">
+                <div class="card-body">
+                    <h2 class="text-center fw-bold mb-4 auth-title">Edit Your Profile</h2>
+                    <p class="text-center text-muted mb-4">Update your personal information below.</p>
+                    
+                    <form method="post" class="auth-form" novalidate>
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                
+                                {% for error in field.errors %}
+                                    <div class="text-danger small fw-bold">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-coffee btn-lg">Save Changes</button>
+                            <a href="{% url 'profile' %}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

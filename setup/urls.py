@@ -15,8 +15,9 @@ urlpatterns = [
     path('login/', accounts_views.user_login, name='login'),
     path('logout/', accounts_views.user_logout, name='logout'),
     
-    # Profile Route
-    path('profile/', accounts_views.profile, name='profile'), # NOVA ROTA
+    # Profile Routes
+    path('profile/', accounts_views.profile, name='profile'),
+    path('profile/edit/', accounts_views.edit_profile, name='edit_profile'), # NOVA ROTA
 ]
 
 if settings.DEBUG:

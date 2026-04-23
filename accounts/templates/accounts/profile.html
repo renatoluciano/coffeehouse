@@ -5,6 +5,16 @@
 
 {% block content %}
 <div class="container py-5">
+    <!-- Bloco para mostrar mensagens de sucesso -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 mb-4" role="alert" style="border-radius: 15px;">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
             <div class="card shadow border-0" style="border-radius: 20px;">
@@ -22,26 +32,21 @@
 
                     <div class="border-top pt-4">
                         <div class="row mb-3">
-                            <div class="col-sm-4 fw-bold text-muted">EMAIL</div>
+                            <div class="col-sm-4 fw-bold text-muted text-uppercase small">Username</div>
+                            <div class="col-sm-8">{{ user.username }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-4 fw-bold text-muted text-uppercase small">Email</div>
                             <div class="col-sm-8">{{ user.email|default:"Not provided" }}</div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-sm-4 fw-bold text-muted">PHONE</div>
+                            <div class="col-sm-4 fw-bold text-muted text-uppercase small">Phone</div>
                             <div class="col-sm-8">{{ user.phone|default:"Not provided" }}</div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-4 fw-bold text-muted">STAFF STATUS</div>
-                            <div class="col-sm-8">
-                                {% if user.is_coffee_staff %}
-                                    <span class="badge bg-success">Coffee House Employee</span>
-                                {% else %}
-                                    <span class="badge bg-secondary">Valued Customer</span>
-                                {% endif %}
-                            </div>
                         </div>
                     </div>
 
                     <div class="d-grid gap-2 mt-5">
+                        <a href="{% url 'edit_profile' %}" class="btn btn-coffee rounded-pill">Edit My Profile</a>
                         <a href="{% url 'index' %}" class="btn btn-outline-brown rounded-pill">Back to Menu</a>
                     </div>
                 </div>
